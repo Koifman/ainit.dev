@@ -111,17 +111,15 @@ function apiDevPlugin() {
           if (shell === 'ps') {
             let script = '';
             if (ignoreContent) {
-              script += `@'\n${ignoreContent}`;
-              if (!ignoreContent.endsWith('\n')) script += '\n';
-              script += `'@ | Set-Content -Path '${fmt.ignore}' -Encoding UTF8\n`;
+              const b64 = Buffer.from(ignoreContent).toString('base64');
+              script += `[IO.File]::WriteAllText('${fmt.ignore}', [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String('${b64}')))\n`;
               script += `Write-Host "Created ${fmt.ignore}"\n`;
             }
             if (rulesContent) {
               const dir = fmt.rules.includes('/') ? fmt.rules.slice(0, fmt.rules.lastIndexOf('/')) : '';
               if (dir) script += `New-Item -ItemType Directory -Force -Path '${dir}' | Out-Null\n`;
-              script += `@'\n${rulesContent}`;
-              if (!rulesContent.endsWith('\n')) script += '\n';
-              script += `'@ | Set-Content -Path '${fmt.rules}' -Encoding UTF8\n`;
+              const b64 = Buffer.from(rulesContent).toString('base64');
+              script += `[IO.File]::WriteAllText('${fmt.rules}', [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String('${b64}')))\n`;
               script += `Write-Host "Created ${fmt.rules}"\n`;
             }
             res.end(script);
