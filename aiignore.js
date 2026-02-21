@@ -14,7 +14,7 @@ export function init() {
   };
 
   const setupInstructions = {
-    '.aiignore': 'No tool reads <code class="text-muted">.aiignore</code> natively yet. Use a tool-specific format below, or rename the file for your tool.',
+    '.aiignore': '<code class="text-muted">.aiignore</code> is an attempt to create a standard, unified ignore format for AI coding tools. No tool reads it natively yet — use a tool-specific format below, or rename the file for your tool.',
     '.cursorignore': 'Drop <code class="text-muted">.cursorignore</code> in your project root. Cursor reads it automatically to exclude files from indexing and context.',
     '.aiexclude': 'Drop <code class="text-muted">.aiexclude</code> in your project root. GitHub Copilot reads it to exclude files from code suggestions.',
     '.codeiumignore': 'Drop <code class="text-muted">.codeiumignore</code> in your project root. Codeium and Windsurf read it automatically to exclude files from indexing.',

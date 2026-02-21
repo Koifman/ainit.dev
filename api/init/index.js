@@ -101,27 +101,20 @@ function generateShell(ignoreContent, rulesContent, fmt) {
   return script;
 }
 
-function toBase64(str) {
-  const bytes = new TextEncoder().encode(str);
-  let binary = '';
-  for (const byte of bytes) binary += String.fromCharCode(byte);
-  return btoa(binary);
-}
-
 function generatePowerShell(ignoreContent, rulesContent, fmt) {
-  let script = '';
+  let script = '$u = [Text.UTF8Encoding]::new($false)\n';
 
   if (ignoreContent) {
-    const b64 = toBase64(ignoreContent);
-    script += `[IO.File]::WriteAllText('${fmt.ignore}', [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String('${b64}')))\n`;
+    const escaped = ignoreContent.replace(/'/g, "''");
+    script += `[IO.File]::WriteAllText((Join-Path $PWD '${fmt.ignore}'), '${escaped}', $u)\n`;
     script += `Write-Host "Created ${fmt.ignore}"\n`;
   }
 
   if (rulesContent) {
     const dir = fmt.rules.includes('/') ? fmt.rules.slice(0, fmt.rules.lastIndexOf('/')) : '';
-    if (dir) script += `New-Item -ItemType Directory -Force -Path '${dir}' | Out-Null\n`;
-    const b64 = toBase64(rulesContent);
-    script += `[IO.File]::WriteAllText('${fmt.rules}', [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String('${b64}')))\n`;
+    if (dir) script += `New-Item -ItemType Directory -Force -Path (Join-Path $PWD '${dir}') | Out-Null\n`;
+    const escaped = rulesContent.replace(/'/g, "''");
+    script += `[IO.File]::WriteAllText((Join-Path $PWD '${fmt.rules}'), '${escaped}', $u)\n`;
     script += `Write-Host "Created ${fmt.rules}"\n`;
   }
 
