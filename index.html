@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ainit.dev — The "git init" for AI agents</title>
+  <meta name="description" content="Generate .aiignore files and AI guardrails for coding tools. Like gitignore.io, but for AI context windows and rules.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect x='10' y='5' width='80' height='90' rx='8' fill='%230a0a0a' stroke='%233b82f6' stroke-width='6'/><line x1='28' y1='30' x2='72' y2='30' stroke='%233b82f6' stroke-width='5' stroke-linecap='round'/><line x1='28' y1='50' x2='60' y2='50' stroke='%2360a5fa' stroke-width='5' stroke-linecap='round'/><line x1='28' y1='70' x2='52' y2='70' stroke='%2393c5fd' stroke-width='5' stroke-linecap='round'/></svg>">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body class="bg-bg text-white min-h-screen">
+  <!-- Header -->
+  <header class="border-b border-border">
+    <div class="max-w-6xl mx-auto px-4 py-6 flex items-center justify-between">
+      <div>
+        <h1 class="text-2xl font-bold tracking-tight">
+          <span class="text-accent">a</span>init.dev
+        </h1>
+        <p class="text-muted text-sm mt-1">The "git init" for AI agents</p>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="https://www.linkedin.com/in/koifman-daniel/" target="_blank" rel="noopener" class="text-white hover:text-neutral-300 transition-colors text-sm">LinkedIn ↗</a>
+        <a href="https://github.com/Koifman/ainit.dev" target="_blank" rel="noopener" class="text-white hover:text-neutral-300 transition-colors text-sm">GitHub ↗</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="max-w-6xl mx-auto px-4 flex">
+    <!-- Left Nav -->
+    <nav class="hidden md:block w-48 shrink-0 py-8 pr-6 border-r border-border">
+      <p class="text-dim text-xs uppercase tracking-wider mb-3">Tools</p>
+      <ul class="space-y-1">
+        <li>
+          <a href="/how-to-use" class="nav-link flex items-center gap-2 px-3 py-2 rounded-md text-sm text-muted hover:text-white hover:bg-white/5 transition-colors">
+            <span class="text-accent text-xs">01</span> How to use
+          </a>
+        </li>
+        <li>
+          <a href="/" class="nav-link flex items-center gap-2 px-3 py-2 rounded-md text-sm text-muted hover:text-white hover:bg-white/5 transition-colors">
+            <span class="text-accent text-xs">02</span> .aiignore
+          </a>
+        </li>
+        <li>
+          <a href="/guardrails" class="nav-link flex items-center gap-2 px-3 py-2 rounded-md text-sm text-muted hover:text-white hover:bg-white/5 transition-colors">
+            <span class="text-accent text-xs">03</span> Guardrails
+          </a>
+        </li>
+        <li>
+          <span class="flex items-center gap-2 px-3 py-2 rounded-md text-sm text-dim cursor-default">
+            <span class="text-dim text-xs">04</span> Tokens <span class="text-xs text-dim/50">soon</span>
+          </span>
+        </li>
+        <li>
+          <span class="flex items-center gap-2 px-3 py-2 rounded-md text-sm text-dim cursor-default">
+            <span class="text-dim text-xs">05</span> Pricing <span class="text-xs text-dim/50">soon</span>
+          </span>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Mobile nav -->
+    <div class="md:hidden flex gap-2 pt-4 pb-2 overflow-x-auto">
+      <a href="/how-to-use" class="mobile-nav shrink-0 px-3 py-1.5 rounded-full text-xs font-medium bg-surface text-muted border border-border">How to use</a>
+      <a href="/" class="mobile-nav shrink-0 px-3 py-1.5 rounded-full text-xs font-medium bg-surface text-muted border border-border">.aiignore</a>
+      <a href="/guardrails" class="mobile-nav shrink-0 px-3 py-1.5 rounded-full text-xs font-medium bg-surface text-muted border border-border">Guardrails</a>
+      <span class="shrink-0 px-3 py-1.5 rounded-full text-xs font-medium text-dim border border-border/50">Tokens</span>
+      <span class="shrink-0 px-3 py-1.5 rounded-full text-xs font-medium text-dim border border-border/50">Pricing</span>
+    </div>
+
+  <!-- ==================== PAGE: How to use ==================== -->
+  <div id="page-howto" class="hidden">
+  <main class="flex-1 min-w-0 py-8 md:pl-8">
+    <section class="mb-10">
+      <p class="text-neutral-300 leading-relaxed max-w-2xl">
+        ainit.dev generates AI configuration files for your project from the command line.
+        One command to set up ignore files and guardrails for any AI coding tool.
+      </p>
+    </section>
+
+    <!-- Quick start -->
+    <section class="mb-10">
+      <h2 class="text-lg font-semibold mb-4">Quick start</h2>
+      <p class="text-neutral-400 text-sm mb-4">Initialize your project with both an ignore file and guardrails in one command.</p>
+      <div class="space-y-3">
+        <div>
+          <p class="text-dim text-xs mb-1.5 font-medium uppercase tracking-wider">Linux / macOS</p>
+          <div class="bg-surface border border-border rounded-lg px-4 py-3">
+            <code class="code-block text-sm text-accent">curl -sL "ainit.dev/api/init?t=react,node?g=react,node?o=cursor" | sh</code>
+          </div>
+        </div>
+        <div>
+          <p class="text-dim text-xs mb-1.5 font-medium uppercase tracking-wider">Windows (PowerShell)</p>
+          <div class="bg-surface border border-border rounded-lg px-4 py-3">
+            <code class="code-block text-sm text-accent">iex (iwr "ainit.dev/api/init?t=react,node?g=react,node?o=cursor?s=ps").Content</code>
+          </div>
+        </div>
+      </div>
+      <p class="text-dim text-xs mt-3">This creates <code class="text-muted">.cursorignore</code> + <code class="text-muted">.cursorrules</code> with React and Node.js templates and guardrails.</p>
+    </section>
+
+    <!-- Init API -->
+    <section class="mb-10">
+      <h2 class="text-lg font-semibold mb-4">Init API</h2>
+      <p class="text-neutral-400 text-sm mb-4"><code class="text-accent bg-accent/10 px-1.5 py-0.5 rounded">/api/init</code> generates a shell script that creates both ignore and rules files.</p>
+      <div class="bg-surface border border-border rounded-lg overflow-x-auto mb-6">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-border">
+              <th class="text-left px-4 py-2.5 text-muted font-medium whitespace-nowrap">Param</th>
+              <th class="text-left px-4 py-2.5 text-muted font-medium">Description</th>
+              <th class="text-left px-4 py-2.5 text-muted font-medium">Values</th>
+            </tr>
+          </thead>
+          <tbody class="text-neutral-400">
+            <tr class="border-b border-border/50">
+              <td class="px-4 py-2"><code class="text-accent">t=</code></td>
+              <td class="px-4 py-2">.aiignore templates</td>
+              <td class="px-4 py-2 text-xs">Comma-separated (e.g. <code class="text-muted">react,node,docker</code>)</td>
+            </tr>
+            <tr class="border-b border-border/50">
+              <td class="px-4 py-2"><code class="text-accent">g=</code></td>
+              <td class="px-4 py-2">Guardrails technologies</td>
+              <td class="px-4 py-2 text-xs">Comma-separated (e.g. <code class="text-muted">react,python</code>)</td>
+            </tr>
+            <tr class="border-b border-border/50">
+              <td class="px-4 py-2"><code class="text-accent">c=</code></td>
+              <td class="px-4 py-2">Category filter (optional)</td>
+              <td class="px-4 py-2 text-xs"><code class="text-muted">code-style, security, testing, error-handling, architecture, dependencies, ai-behavior, git-workflow</code></td>
+            </tr>
+            <tr class="border-b border-border/50">
+              <td class="px-4 py-2"><code class="text-accent">o=</code></td>
+              <td class="px-4 py-2">Output tool format</td>
+              <td class="px-4 py-2 text-xs"><code class="text-muted">agents</code> (default), <code class="text-muted">cursor</code>, <code class="text-muted">claude</code>, <code class="text-muted">windsurf</code>, <code class="text-muted">copilot</code>, <code class="text-muted">gemini</code></td>
+            </tr>
+            <tr>
+              <td class="px-4 py-2"><code class="text-accent">s=</code></td>
+              <td class="px-4 py-2">Shell type</td>
+              <td class="px-4 py-2 text-xs"><code class="text-muted">sh</code> (default) or <code class="text-muted">ps</code> (PowerShell)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 class="text-white text-sm font-medium mb-3">Examples</h3>
+      <div class="space-y-3">
+        <div>
+          <p class="text-dim text-xs mb-1.5 font-medium uppercase tracking-wider">Linux / macOS</p>
+          <div class="bg-surface border border-border rounded-lg px-4 py-3 space-y-2">
+            <div>
+              <code class="code-block text-sm text-neutral-400 block">curl -sL "ainit.dev/api/init?t=react,node?g=react,node" | sh</code>
+              <span class="text-dim text-xs">Creates .aiignore + AGENTS.md</span>
+            </div>
+            <div>
+              <code class="code-block text-sm text-neutral-400 block">curl -sL "ainit.dev/api/init?t=react,node?g=react?o=cursor" | sh</code>
+              <span class="text-dim text-xs">Creates .cursorignore + .cursorrules</span>
+            </div>
+            <div>
+              <code class="code-block text-sm text-neutral-400 block">curl -sL "ainit.dev/api/init?g=python,django?c=security,testing?o=claude" | sh</code>
+              <span class="text-dim text-xs">Guardrails only, filtered to security + testing categories</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <p class="text-dim text-xs mb-1.5 font-medium uppercase tracking-wider">Windows (PowerShell)</p>
+          <div class="bg-surface border border-border rounded-lg px-4 py-3 space-y-2">
+            <div>
+              <code class="code-block text-sm text-neutral-400 block">iex (iwr "ainit.dev/api/init?t=react,node?g=react,node?s=ps").Content</code>
+              <span class="text-dim text-xs">Creates .aiignore + AGENTS.md</span>
+            </div>
+            <div>
+              <code class="code-block text-sm text-neutral-400 block">iex (iwr "ainit.dev/api/init?t=react,node?g=react?o=cursor?s=ps").Content</code>
+              <span class="text-dim text-xs">Creates .cursorignore + .cursorrules</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="text-dim text-xs mt-3">Windows requires <code class="text-muted">s=ps</code> to generate a PowerShell script instead of a shell script. Use <code class="text-muted">iwr</code> (Invoke-WebRequest) instead of <code class="text-muted">curl</code> when piping to <code class="text-muted">iex</code> (Invoke-Expression).</p>
+    </section>
+
+    <!-- Output formats -->
+    <section class="mb-10">
+      <h2 class="text-lg font-semibold mb-4">Output formats</h2>
+      <p class="text-neutral-400 text-sm mb-4">The <code class="text-accent bg-accent/10 px-1.5 py-0.5 rounded">o=</code> parameter controls which filenames are generated:</p>
+      <div class="bg-surface border border-border rounded-lg overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-border">
+              <th class="text-left px-4 py-2.5 text-muted font-medium">o=</th>
+              <th class="text-left px-4 py-2.5 text-muted font-medium">Tool</th>
+              <th class="text-left px-4 py-2.5 text-muted font-medium">Ignore file</th>
+              <th class="text-left px-4 py-2.5 text-muted font-medium">Rules file</th>
+            </tr>
+          </thead>
+          <tbody class="text-neutral-400">
+            <tr class="border-b border-border/50">
+              <td class="px-4 py-2"><code class="text-accent">agents</code></td>
+              <td class="px-4 py-2">Cross-tool (default)</td>
+              <td class="px-4 py-2 code-block text-xs">.aiignore</td>
+              <td class="px-4 py-2 code-block text-xs">AGENTS.md</td>
+            </tr>
+            <tr class="border-b border-border/50">
+              <td class="px-4 py-2"><code class="text-accent">cursor</code></td>
+              <td class="px-4 py-2">Cursor</td>
+              <td class="px-4 py-2 code-block text-xs">.cursorignore</td>
+              <td class="px-4 py-2 code-block text-xs">.cursorrules</td>
+            </tr>
+            <tr class="border-b border-border/50">
+              <td class="px-4 py-2"><code class="text-accent">claude</code></td>
+              <td class="px-4 py-2">Claude Code</td>
+              <td class="px-4 py-2 code-block text-xs">.claudeignore</td>
+              <td class="px-4 py-2 code-block text-xs">CLAUDE.md</td>
+            </tr>
+            <tr class="border-b border-border/50">
+              <td class="px-4 py-2"><code class="text-accent">windsurf</code></td>
+              <td class="px-4 py-2">Windsurf</td>
+              <td class="px-4 py-2 code-block text-xs">.codeiumignore</td>
+              <td class="px-4 py-2 code-block text-xs">.windsurfrules</td>
+            </tr>
+            <tr class="border-b border-border/50">
+              <td class="px-4 py-2"><code class="text-accent">copilot</code></td>
+              <td class="px-4 py-2">GitHub Copilot</td>
+              <td class="px-4 py-2 code-block text-xs">.aiexclude</td>
+              <td class="px-4 py-2 code-block text-xs">copilot-instructions.md</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-2"><code class="text-accent">gemini</code></td>
+              <td class="px-4 py-2">Gemini Code Assist</td>
+              <td class="px-4 py-2 code-block text-xs">.geminiignore</td>
+              <td class="px-4 py-2 code-block text-xs">GEMINI.md</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- .aiignore API -->
+    <section class="mb-10">
+      <h2 class="text-lg font-semibold mb-4">.aiignore API</h2>
+      <p class="text-neutral-400 text-sm mb-4"><code class="text-accent bg-accent/10 px-1.5 py-0.5 rounded">/api/{templates}</code> returns a combined ignore file. Works with <code class="text-muted">curl -L</code> on all platforms.</p>
+      <div class="bg-surface border border-border rounded-lg px-4 py-3 space-y-2 mb-4">
+        <div>
+          <code class="code-block text-sm text-neutral-400 block">curl -L ainit.dev/api/react,node,typescript</code>
+          <span class="text-dim text-xs">All templates combined into .aiignore</span>
+        </div>
+        <div>
+          <code class="code-block text-sm text-neutral-400 block">curl -L "ainit.dev/api/react,node?o=cursorignore"</code>
+          <span class="text-dim text-xs">Output as .cursorignore format</span>
+        </div>
+        <div>
+          <code class="code-block text-sm text-neutral-400 block">curl -L ainit.dev/api/python,django,docker</code>
+          <span class="text-dim text-xs">Python + Django + Docker</span>
+        </div>
+      </div>
+      <p class="text-dim text-xs">Browse templates interactively on the <a href="/" class="text-muted underline hover:text-white">.aiignore generator</a>.</p>
+    </section>
+
+    <!-- Guardrails API -->
+    <section class="mb-10">
+      <h2 class="text-lg font-semibold mb-4">Guardrails API</h2>
+      <p class="text-neutral-400 text-sm mb-4"><code class="text-accent bg-accent/10 px-1.5 py-0.5 rounded">/api/guardrails/{technologies}</code> returns combined guardrails. Works with <code class="text-muted">curl -L</code> on all platforms.</p>
+      <div class="bg-surface border border-border rounded-lg px-4 py-3 space-y-2 mb-4">
+        <div>
+          <code class="code-block text-sm text-neutral-400 block">curl -L ainit.dev/api/guardrails/react,python</code>
+          <span class="text-dim text-xs">All categories for React + Python</span>
+        </div>
+        <div>
+          <code class="code-block text-sm text-neutral-400 block">curl -L "ainit.dev/api/guardrails/react,node?c=security,testing"</code>
+          <span class="text-dim text-xs">Only security + testing categories</span>
+        </div>
+        <div>
+          <code class="code-block text-sm text-neutral-400 block">curl -L "ainit.dev/api/guardrails/react?o=cursor"</code>
+          <span class="text-dim text-xs">Output as .cursorrules format</span>
+        </div>
+      </div>
+      <p class="text-dim text-xs">Browse technologies interactively on the <a href="/guardrails" class="text-muted underline hover:text-white">guardrails generator</a>.</p>
+    </section>
+
+  </main>
+  </div>
+
+  <!-- ==================== PAGE: .aiignore ==================== -->
+  <div id="page-aiignore">
+  <main class="flex-1 min-w-0 py-8 md:pl-8">
+    <!-- Intro -->
+    <section class="mb-8">
+      <p class="text-neutral-300 leading-relaxed max-w-2xl">
+        Stop wasting AI tokens on <code class="text-accent bg-accent/10 px-1.5 py-0.5 rounded text-sm">node_modules</code>, build artifacts, and binary files.
+        Select your stack below to generate an ignore file that keeps your AI coding tools focused on code that matters.
+      </p>
+      <div class="mt-4 bg-surface border border-border rounded-lg px-4 py-3">
+        <code class="code-block text-sm text-muted">$ curl -L ainit.dev/api/react,node,typescript</code>
+      </div>
+    </section>
+
+    <!-- Search -->
+    <section class="mb-6">
+      <div class="relative">
+        <input
+          id="search"
+          type="text"
+          placeholder="Search technologies... (e.g. react, python, docker)"
+          autocomplete="off"
+          class="w-full bg-surface border border-border rounded-lg px-4 py-3 text-white placeholder-dim focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors"
+        >
+        <span id="template-count" class="absolute right-3 top-1/2 -translate-y-1/2 text-dim text-xs pointer-events-none"></span>
+        <div id="results" class="search-results absolute z-10 w-full mt-1 bg-surface border border-border rounded-lg max-h-64 overflow-y-auto hidden"></div>
+      </div>
+    </section>
+
+    <!-- Selected chips -->
+    <section class="mb-6">
+      <div id="chips" class="flex flex-wrap gap-2 min-h-[2.5rem] items-center">
+        <span id="empty-hint" class="text-dim text-sm">Select technologies above to get started</span>
+      </div>
+    </section>
+
+    <!-- Output format toggle -->
+    <section class="mb-2 flex flex-wrap items-center gap-3">
+      <span class="text-muted text-sm">Output format:</span>
+      <div id="format-toggle" class="flex flex-wrap gap-1">
+        <button data-format=".aiignore" class="format-btn px-3 py-1 rounded text-xs font-medium transition-colors bg-accent text-white">.aiignore</button>
+        <button data-format=".cursorignore" class="format-btn px-3 py-1 rounded text-xs font-medium transition-colors bg-surface text-muted border border-border hover:text-white">.cursorignore</button>
+        <button data-format=".aiexclude" class="format-btn px-3 py-1 rounded text-xs font-medium transition-colors bg-surface text-muted border border-border hover:text-white">.aiexclude</button>
+        <button data-format=".codeiumignore" class="format-btn px-3 py-1 rounded text-xs font-medium transition-colors bg-surface text-muted border border-border hover:text-white">.codeiumignore</button>
+        <button data-format=".geminiignore" class="format-btn px-3 py-1 rounded text-xs font-medium transition-colors bg-surface text-muted border border-border hover:text-white">.geminiignore</button>
+        <button data-format=".claudeignore" class="format-btn px-3 py-1 rounded text-xs font-medium transition-colors bg-surface text-muted border border-border hover:text-white">.claudeignore</button>
+      </div>
+    </section>
+    <!-- Setup hint -->
+    <section class="mb-4">
+      <p id="setup-hint" class="text-dim text-xs leading-relaxed">No tool reads <code class="text-muted">.aiignore</code> natively yet. Use a tool-specific format below, or rename the file for your tool.</p>
+    </section>
+
+    <!-- Preview -->
+    <section class="mb-6">
+      <div class="bg-surface border border-border rounded-lg overflow-hidden">
+        <div class="flex items-center justify-between px-4 py-2 border-b border-border bg-bg/50">
+          <span id="filename" class="code-block text-sm text-muted">.aiignore</span>
+          <div class="flex gap-2">
+            <button id="copy-btn" class="text-xs text-dim hover:text-white transition-colors px-2 py-1 rounded hover:bg-white/5" disabled>Copy</button>
+            <button id="download-btn" class="text-xs text-dim hover:text-white transition-colors px-2 py-1 rounded hover:bg-white/5" disabled>Download</button>
+          </div>
+        </div>
+        <pre id="preview" class="code-block text-sm p-4 overflow-x-auto text-neutral-400 min-h-[200px] max-h-[500px] overflow-y-auto"><span class="text-dim">// Select technologies above to generate your ignore file</span></pre>
+      </div>
+    </section>
+
+    <!-- Curl instruction -->
+    <section class="mb-12">
+      <div id="curl-hint" class="hidden bg-surface border border-border rounded-lg px-4 py-3">
+        <p class="text-muted text-sm mb-1">Or use curl:</p>
+        <code id="curl-cmd" class="code-block text-sm text-accent"></code>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section class="border-t border-border pt-8 pb-12">
+      <h2 class="text-lg font-semibold mb-4">Why .aiignore?</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-neutral-400">
+        <div>
+          <h3 class="text-white font-medium mb-2">Save tokens</h3>
+          <p>AI tools index your entire project. Binary files, lock files, and build output eat your context window with zero value.</p>
+        </div>
+        <div>
+          <h3 class="text-white font-medium mb-2">Better suggestions</h3>
+          <p>When AI tools focus on your actual source code, they give more relevant completions and suggestions.</p>
+        </div>
+        <div>
+          <h3 class="text-white font-medium mb-2">All tools supported</h3>
+          <p>Generate for Cursor, GitHub Copilot, Codeium, Gemini Code Assist, and any tool supporting .aiignore.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+  </div>
+
+  <!-- ==================== PAGE: Guardrails ==================== -->
+  <div id="page-guardrails" class="hidden">
+  <main class="flex-1 min-w-0 py-8 md:pl-8">
+    <!-- Intro -->
+    <section class="mb-8">
+      <p class="text-neutral-300 leading-relaxed max-w-2xl">
+        Generate rules files that tell AI coding tools how to behave in your project.
+        Select your stack and categories below to build a guardrails file for any tool.
+      </p>
+      <div class="mt-4 bg-surface border border-border rounded-lg px-4 py-3">
+        <code class="code-block text-sm text-muted">$ curl -L ainit.dev/api/guardrails/react,python</code>
+      </div>
+    </section>
+
+    <!-- Search -->
+    <section class="mb-6">
+      <div class="relative">
+        <input
+          id="gr-search"
+          type="text"
+          placeholder="Search technologies... (e.g. react, python, node)"
+          autocomplete="off"
+          class="w-full bg-surface border border-border rounded-lg px-4 py-3 text-white placeholder-dim focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors"
+        >
+        <span id="gr-template-count" class="absolute right-3 top-1/2 -translate-y-1/2 text-dim text-xs pointer-events-none"></span>
+        <div id="gr-results" class="search-results absolute z-10 w-full mt-1 bg-surface border border-border rounded-lg max-h-64 overflow-y-auto hidden"></div>
+      </div>
+    </section>
+
+    <!-- Selected chips -->
+    <section class="mb-6">
+      <div id="gr-chips" class="flex flex-wrap gap-2 min-h-[2.5rem] items-center">
+        <span id="gr-empty-hint" class="text-dim text-sm">Select technologies above — or just pick categories for generic rules</span>
+      </div>
+    </section>
+
+    <!-- Category toggles -->
+    <section class="mb-6">
+      <div class="flex flex-wrap items-center gap-3">
+        <span class="text-muted text-sm">Categories:</span>
+        <div id="gr-category-toggle" class="flex flex-wrap gap-1"></div>
+      </div>
+    </section>
+
+    <!-- Output format toggle -->
+    <section class="mb-2 flex flex-wrap items-center gap-3">
+      <span class="text-muted text-sm">Output format:</span>
+      <div id="gr-format-toggle" class="flex flex-wrap gap-1">
+        <button data-format="AGENTS.md" class="format-btn px-3 py-1 rounded text-xs font-medium transition-colors bg-accent text-white">AGENTS.md</button>
+        <button data-format="CLAUDE.md" class="format-btn px-3 py-1 rounded text-xs font-medium transition-colors bg-surface text-muted border border-border hover:text-white">CLAUDE.md</button>
+        <button data-format=".cursorrules" class="format-btn px-3 py-1 rounded text-xs font-medium transition-colors bg-surface text-muted border border-border hover:text-white">.cursorrules</button>
+        <button data-format=".windsurfrules" class="format-btn px-3 py-1 rounded text-xs font-medium transition-colors bg-surface text-muted border border-border hover:text-white">.windsurfrules</button>
+        <button data-format="copilot-instructions.md" class="format-btn px-3 py-1 rounded text-xs font-medium transition-colors bg-surface text-muted border border-border hover:text-white">copilot-instructions.md</button>
+        <button data-format="GEMINI.md" class="format-btn px-3 py-1 rounded text-xs font-medium transition-colors bg-surface text-muted border border-border hover:text-white">GEMINI.md</button>
+      </div>
+    </section>
+    <!-- Setup hint -->
+    <section class="mb-4">
+      <p id="gr-setup-hint" class="text-dim text-xs leading-relaxed">Drop <a href="https://agents.md" target="_blank" rel="noopener" class="text-muted underline hover:text-white">AGENTS.md</a> in your project root. This is the emerging cross-tool standard from the Linux Foundation — supported by multiple AI coding tools.</p>
+    </section>
+
+    <!-- Preview -->
+    <section class="mb-6">
+      <div class="bg-surface border border-border rounded-lg overflow-hidden">
+        <div class="flex items-center justify-between px-4 py-2 border-b border-border bg-bg/50">
+          <span id="gr-filename" class="code-block text-sm text-muted">AGENTS.md</span>
+          <div class="flex gap-2">
+            <button id="gr-copy-btn" class="text-xs text-dim hover:text-white transition-colors px-2 py-1 rounded hover:bg-white/5" disabled>Copy</button>
+            <button id="gr-download-btn" class="text-xs text-dim hover:text-white transition-colors px-2 py-1 rounded hover:bg-white/5" disabled>Download</button>
+          </div>
+        </div>
+        <pre id="gr-preview" class="code-block text-sm p-4 overflow-x-auto text-neutral-400 min-h-[200px] max-h-[500px] overflow-y-auto"><span class="text-dim">// Select categories above to generate your guardrails file</span></pre>
+      </div>
+    </section>
+
+    <!-- Curl instruction -->
+    <section class="mb-12">
+      <div id="gr-curl-hint" class="hidden bg-surface border border-border rounded-lg px-4 py-3">
+        <p class="text-muted text-sm mb-1">Or use curl:</p>
+        <code id="gr-curl-cmd" class="code-block text-sm text-accent"></code>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section class="border-t border-border pt-8 pb-12">
+      <h2 class="text-lg font-semibold mb-4">Why guardrails?</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-neutral-400">
+        <div>
+          <h3 class="text-white font-medium mb-2">Consistent AI behavior</h3>
+          <p>Define coding standards, security rules, and patterns once. Every AI tool follows the same rules across your team.</p>
+        </div>
+        <div>
+          <h3 class="text-white font-medium mb-2">All tools supported</h3>
+          <p>Generate for Claude Code, Cursor, Windsurf, GitHub Copilot, and the cross-tool AGENTS.md standard.</p>
+        </div>
+        <div>
+          <h3 class="text-white font-medium mb-2">Stack-aware rules</h3>
+          <p>Generic best practices plus technology-specific overrides. React rules for React projects, Python rules for Python.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+  </div>
+
+  </div> <!-- close flex wrapper -->
+
+  <footer class="border-t border-border">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center text-xs text-dim">
+      <span>ainit.dev</span>
+    </div>
+  </footer>
+
+  <script type="module" src="/app.js"></script>
+</body>
+</html>

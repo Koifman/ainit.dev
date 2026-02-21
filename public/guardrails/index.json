@@ -1,0 +1,24 @@
+{
+  "categories": [
+    { "slug": "code-style", "name": "Code Style" },
+    { "slug": "security", "name": "Security" },
+    { "slug": "testing", "name": "Testing" },
+    { "slug": "error-handling", "name": "Error Handling" },
+    { "slug": "architecture", "name": "Architecture" },
+    { "slug": "dependencies", "name": "Dependencies" },
+    { "slug": "ai-behavior", "name": "AI Behavior" },
+    { "slug": "git-workflow", "name": "Git Workflow" }
+  ],
+  "technologies": [
+    { "slug": "react", "name": "React", "category": "frameworks", "aliases": ["reactjs", "jsx"] },
+    { "slug": "python", "name": "Python", "category": "languages", "aliases": ["py", "python3"] },
+    { "slug": "typescript", "name": "TypeScript", "category": "languages", "aliases": ["ts"] },
+    { "slug": "node", "name": "Node.js", "category": "tools", "aliases": ["nodejs", "express", "fastify"] },
+    { "slug": "nextjs", "name": "Next.js", "category": "frameworks", "aliases": ["next", "nextjs14", "nextjs15"] },
+    { "slug": "django", "name": "Django", "category": "frameworks", "aliases": ["drf", "django-rest"] },
+    { "slug": "go", "name": "Go", "category": "languages", "aliases": ["golang"] },
+    { "slug": "rust", "name": "Rust", "category": "languages", "aliases": ["rs", "cargo"] },
+    { "slug": "vue", "name": "Vue", "category": "frameworks", "aliases": ["vuejs", "vue3", "nuxt"] },
+    { "slug": "angular", "name": "Angular", "category": "frameworks", "aliases": ["ng", "angular17"] }
+  ]
+}

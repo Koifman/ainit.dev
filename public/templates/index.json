@@ -1,0 +1,40 @@
+[
+  { "slug": "javascript", "name": "JavaScript", "category": "languages", "aliases": ["js", "ecmascript", "es6"] },
+  { "slug": "typescript", "name": "TypeScript", "category": "languages", "aliases": ["ts"] },
+  { "slug": "python", "name": "Python", "category": "languages", "aliases": ["py", "python3"] },
+  { "slug": "rust", "name": "Rust", "category": "languages", "aliases": ["rs"] },
+  { "slug": "go", "name": "Go", "category": "languages", "aliases": ["golang"] },
+  { "slug": "java", "name": "Java", "category": "languages", "aliases": ["jdk", "jre"] },
+  { "slug": "csharp", "name": "C#", "category": "languages", "aliases": ["cs", "dotnet", ".net"] },
+  { "slug": "ruby", "name": "Ruby", "category": "languages", "aliases": ["rb"] },
+  { "slug": "php", "name": "PHP", "category": "languages", "aliases": [] },
+  { "slug": "swift", "name": "Swift", "category": "languages", "aliases": ["ios", "xcode"] },
+  { "slug": "kotlin", "name": "Kotlin", "category": "languages", "aliases": ["kt", "android"] },
+
+  { "slug": "react", "name": "React", "category": "frameworks", "aliases": ["reactjs", "create-react-app", "cra"] },
+  { "slug": "nextjs", "name": "Next.js", "category": "frameworks", "aliases": ["next", "nextjs13", "nextjs14"] },
+  { "slug": "vue", "name": "Vue", "category": "frameworks", "aliases": ["vuejs", "vue3", "nuxt"] },
+  { "slug": "angular", "name": "Angular", "category": "frameworks", "aliases": ["ng", "angularjs"] },
+  { "slug": "django", "name": "Django", "category": "frameworks", "aliases": [] },
+  { "slug": "flask", "name": "Flask", "category": "frameworks", "aliases": [] },
+  { "slug": "rails", "name": "Rails", "category": "frameworks", "aliases": ["ruby-on-rails", "ror"] },
+  { "slug": "laravel", "name": "Laravel", "category": "frameworks", "aliases": [] },
+  { "slug": "spring", "name": "Spring", "category": "frameworks", "aliases": ["spring-boot", "springboot"] },
+  { "slug": "svelte", "name": "Svelte", "category": "frameworks", "aliases": ["sveltekit"] },
+
+  { "slug": "node", "name": "Node.js", "category": "tools", "aliases": ["nodejs", "npm", "bun", "yarn", "pnpm"] },
+  { "slug": "docker", "name": "Docker", "category": "tools", "aliases": ["containers", "docker-compose"] },
+  { "slug": "terraform", "name": "Terraform", "category": "tools", "aliases": ["tf", "hcl", "opentofu"] },
+  { "slug": "kubernetes", "name": "Kubernetes", "category": "tools", "aliases": ["k8s", "helm"] },
+
+  { "slug": "vscode", "name": "VS Code", "category": "editors", "aliases": ["visual-studio-code", "code"] },
+  { "slug": "jetbrains", "name": "JetBrains", "category": "editors", "aliases": ["intellij", "webstorm", "pycharm", "phpstorm", "rider", "goland"] },
+  { "slug": "vim", "name": "Vim", "category": "editors", "aliases": ["neovim", "nvim", "vi"] },
+
+  { "slug": "binaries", "name": "Binaries", "category": "general", "aliases": ["binary", "fonts", "images"] },
+  { "slug": "media", "name": "Media", "category": "general", "aliases": ["audio", "video", "images"] },
+  { "slug": "lockfiles", "name": "Lock Files", "category": "general", "aliases": ["lock", "lockfile"] },
+  { "slug": "buildoutput", "name": "Build Output", "category": "general", "aliases": ["build", "dist", "compiled"] },
+  { "slug": "secrets", "name": "Secrets", "category": "general", "aliases": ["env", "credentials", "keys", "tokens"] },
+  { "slug": "logs", "name": "Logs", "category": "general", "aliases": ["logging", "debug-logs"] }
+]
