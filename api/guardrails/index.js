@@ -45,10 +45,10 @@ export default async function handler(req) {
 
   // Fetch all needed files in parallel
   const catFetches = activeCats.map(slug =>
-    fetch(new URL(`/guardrails/categories/${slug}.md`, base)).then(r => r.ok ? r.text() : '').catch(() => '')
+    fetch(new URL(`/gr/categories/${slug}.md`, base)).then(r => r.ok ? r.text() : '').catch(() => '')
   );
   const techFetches = slugs.map(slug =>
-    fetch(new URL(`/guardrails/tech/${slug}.md`, base)).then(r => r.ok ? r.text() : '').catch(() => '')
+    fetch(new URL(`/gr/tech/${slug}.md`, base)).then(r => r.ok ? r.text() : '').catch(() => '')
   );
   const [catContents, techContents] = await Promise.all([
     Promise.all(catFetches),
