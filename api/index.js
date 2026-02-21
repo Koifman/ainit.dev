@@ -3,9 +3,10 @@ export const config = { runtime: 'edge' };
 function parseParams(rawUrl) {
   const q = rawUrl.indexOf('?');
   if (q === -1) return {};
-  const pairs = rawUrl.slice(q + 1).split('?');
+  // Decode separator chars that CDN/proxy (e.g. Vercel) may have percent-encoded
+  const qs = rawUrl.slice(q + 1).replace(/%3F/gi, '?').replace(/%3D/gi, '=').replace(/%26/gi, '&');
   const p = {};
-  for (const pair of pairs) { const eq = pair.indexOf('='); if (eq !== -1) try { p[pair.slice(0, eq)] = decodeURIComponent(pair.slice(eq + 1)); } catch { p[pair.slice(0, eq)] = pair.slice(eq + 1); } }
+  for (const pair of qs.split(/[?&]/)) { if (pair.startsWith('path=')) continue; const eq = pair.indexOf('='); if (eq !== -1) try { p[pair.slice(0, eq)] = decodeURIComponent(pair.slice(eq + 1)); } catch { p[pair.slice(0, eq)] = pair.slice(eq + 1); } }
   return p;
 }
 
@@ -36,7 +37,6 @@ export default async function handler(req) {
   }
 
   const parts = await Promise.all(slugs.map(s => fetch(new URL(`/templates/${s}.txt`, base)).then(r => r.text())));
-  const rawQs = req.url.split('?').slice(1).join('?') || 'o=aiignore';
-  const header = `# === ${outputFilename} ===\n# Templates: ${slugs.join(', ')}\n# curl -L ainit.dev/api/${slugs.join(',')}?${rawQs}\n`;
+  const header = `# === ${outputFilename} ===\n# Templates: ${slugs.join(', ')}\n# curl -L ainit.dev/api/${slugs.join(',')}?o=${formatParam || 'aiignore'}\n`;
   return new Response(header + '\n' + parts.join('\n'), { headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
 }

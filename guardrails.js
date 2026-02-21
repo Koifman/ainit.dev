@@ -58,7 +58,7 @@ export function init() {
     // Restore from URL (split ONLY on ? — & is not a valid separator)
     const params = {};
     if (window.location.search.length > 1) {
-      window.location.search.slice(1).split('?').forEach(part => {
+      window.location.search.slice(1).split(/[?&]/).forEach(part => {
         const eq = part.indexOf('=');
         if (eq !== -1) try { params[part.slice(0, eq)] = decodeURIComponent(part.slice(eq + 1)); } catch { params[part.slice(0, eq)] = part.slice(eq + 1); }
       });
